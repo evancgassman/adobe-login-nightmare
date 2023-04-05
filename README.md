@@ -11,7 +11,7 @@ npm install adobe-login-nightmare
 
 ## Usage and Functions
 ```
-fetch(example@example.com, password, options);
+login(username, password, settingsOBJ);
 ```
 
 ## Supported Services:
@@ -32,7 +32,7 @@ In the future, I plan to add supported services as needed, but I am a busy man.<
 
 ## Example with Annotations
 ```js
-const adobeVerify = require("adobe-fetch-verify");
+const adobeVerify = require("adobe-login-nightmare");
 
 async function mainHandler() {
     let options = {
