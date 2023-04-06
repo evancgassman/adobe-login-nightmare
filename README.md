@@ -11,7 +11,7 @@ npm install adobe-login-nightmare
 
 ## Usage and Functions
 ```
-login(username, password, settingsOBJ);
+login(nightmareInstance, username, password, settingsOBJ);
 ```
 
 ## Supported Services:
@@ -32,24 +32,22 @@ In the future, I plan to add supported services as needed, but I am a busy man.<
 
 ## Example with Annotations
 ```js
-const adobeVerify = require("adobe-login-nightmare");
+const adobeLoginNightmare = require("adobe-login-nightmare");
+const Nightmare = require('nightmare');
+const nightmareClient = Nightmare();
 
 async function mainHandler() {
-    let options = {
-        searchFlag: 'ALL',
-        subSearchFlag: 'SINCE',
-        subSearchFlagValue: new Date(),
-        returnTimestamp: true,
-        limit: 15
+
+    let settingsOBJ = {
+        "verifyType": "IMAP",
+        "imapPassword": "imapPassword",
+        "service": "Adobe Stock"
     };
 
-    let codeList = await adobeVerify.fetch("example@gmail.com", "wgg3g2hh2h", options);
-    console.log(codeList); 
-    /*
-      This will log an array of objects containing the properties "timestamp" and "code".
-      Example: [{code: "243631", timestamp: [ 'Thu, 23 Mar 2023 21:22:04 +0000' ]}, {code: "638211", timestamp: [ 'Thu, 21 Mar 2023 21:22:04 +0000' ]}]
-    */
+    await adobeLoginNightmare.login(nightmareClient, "adobeUsername", "adobePassword", settingsOBJ);
+
 }
 
 mainHandler();
 ```
+**Due to security reasons, Adobe will send a verification code via email when trying to login with this software. In order for this code to be gathered by this package, it is recommended that you set a custom IMAP password. <a href="https://github.com/evancgassman/adobe-fetch-verify/blob/main/README.md#important-notes-and-support">For more information check out this link</a>**.
